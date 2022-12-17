@@ -1,0 +1,27 @@
+﻿@model DocumentDesigner.WebApi.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Вход";
+}
+<div id="main-row" class="row white-shadow">
+    <div class="col-5 mt-5">
+        <h2 class="yellow-color">Пожалуйста, войдите</h2>
+        <form asp-action="Authentication" asp-controller="Authentication" asp-anti-forgery="true">
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label orange-color">Email</label><br />
+                <input type="email" asp-for="Email">
+                <span asp-validation-for="Email" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label orange-color">Пароль</label>
+                <input type="password" asp-for="Password" class="form-control">
+                <span asp-validation-for="Password" />
+            </div>
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+        <p>Нет аккаунта?<a asp-controller="Authentication" asp-action="Registration">Регистрация</a></p>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-5">
+        <div id="left-column"></div>
+    </div>
+</div>
