@@ -12,5 +12,23 @@ namespace DocumentDesigner.WebApi.Controllers
 		{
 			return View();
 		}
-	}
+
+        public async Task<IActionResult> Authentication()
+        {
+            //if (ModelState.IsValid)
+            //{
+            //    var user = Controllers.User.Users.FirstOrDefault(u => u.Email == loginModel.Email && u.Password == loginModel.Password);
+            //    if (user != null)
+            //    {
+            //        await Authenticate(loginModel.Email);
+
+            //        // return RedirectToAction("Index", "Document");
+            //    }
+
+            //    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+            //}
+
+            return View();
+        }
+    }
 }
