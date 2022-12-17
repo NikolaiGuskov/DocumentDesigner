@@ -1,34 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using DocumentDesigner.Application.Data;
+using DocumentDesigner.WebApi.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentDesigner.WebApi.Controllers
 {
 	public class AuthenticationController : Controller
 	{
+        public readonly ContextData _contextData;
+
+		private readonly IAuthenticationService _authenticationService;
+
+		public AuthenticationController(ContextData contextData, IAuthenticationService authenticationService)
+		{
+            _contextData = contextData;
+			_authenticationService = authenticationService;
+		}
+
+		[HttpGet]
 		public IActionResult Login()
 		{
 			return View();
 		}
 
-        public async Task<IActionResult> Authentication()
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Authentication()
         {
-            //if (ModelState.IsValid)
-            //{
-            //    var user = Controllers.User.Users.FirstOrDefault(u => u.Email == loginModel.Email && u.Password == loginModel.Password);
-            //    if (user != null)
-            //    {
-            //        await Authenticate(loginModel.Email);
+			if (ModelState.IsValid)
+			{
+				var user = await _contextData.Clients
+					.GetClient(null, null)
+					.ConfigureAwait(false);
 
-            //        // return RedirectToAction("Index", "Document");
-            //    }
+				if (user != null)
+				{
+					await _authenticationService
+						.SetAuthenticationCookies(null)
+						.ConfigureAwait(false);
 
-            //    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
-            //}
+					return RedirectToAction("Index", "Home");
+				}
 
-            return View();
+				ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+			}
+
+			return View();
         }
-    }
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Registration()
+		{
+			if (ModelState.IsValid)
+			{
+				await _contextData.Clients.CreateClient(null).ConfigureAwait(false);
+
+				await _authenticationService
+					.SetAuthenticationCookies(null)
+					.ConfigureAwait(false);
+
+				return RedirectToAction("Index", "Home");
+			}
+
+			return View();
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Logout()
+		{
+			await _authenticationService
+				.DeleteAuthenticationCookies()
+				.ConfigureAwait(false);
+
+			return RedirectToAction("Login", "Authentication");
+		}
+	}
 }

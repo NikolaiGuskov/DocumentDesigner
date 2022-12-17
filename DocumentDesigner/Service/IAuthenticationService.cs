@@ -15,5 +15,10 @@ namespace DocumentDesigner.WebApi.Service
 		/// </summary>
 		/// <param name="clientEmail">Email клиента.</param>
 		public Task SetAuthenticationCookies(string clientEmail);
+
+		/// <summary>
+		/// Удаляет аутентификационные куки.
+		/// </summary>
+		public Task DeleteAuthenticationCookies();
 	}
 }

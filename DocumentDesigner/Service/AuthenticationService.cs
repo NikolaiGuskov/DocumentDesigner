@@ -29,5 +29,10 @@ namespace DocumentDesigner.WebApi.Service
 
 			await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
 		}
+
+		public async Task DeleteAuthenticationCookies()
+		{
+			await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+		}
 	}
 }

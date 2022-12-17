@@ -1,12 +1,15 @@
-﻿using DocumentDesigner.Domain.Models;
+﻿using DocumentDesigner.Application.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DocumentDesigner.Application.Data
 {
 	public interface IClientRepository
 	{
-		public Client GetClientBy();
+		public Task<Client> GetClient(string email, string password);
+
+		public Task CreateClient(Client client);
 	}
 }
