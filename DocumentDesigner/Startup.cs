@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DocumentDesigner.WebApi.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using DocumentDesigner.Application.Extensions;
+using DocumentDesigner.Persistence.Extensions;
 
 namespace DocumentDesigner
 {
@@ -31,7 +28,11 @@ namespace DocumentDesigner
 				});
 			services.AddControllersWithViews();
 			services.AddHttpContextAccessor();
+
 			services.AddTransient<IAuthenticationService, AuthenticationService>();
+
+			services.AddApplication();
+			services.AddPersistense(Configuration);
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -50,6 +51,7 @@ namespace DocumentDesigner
 
 			app.UseRouting();
 
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>

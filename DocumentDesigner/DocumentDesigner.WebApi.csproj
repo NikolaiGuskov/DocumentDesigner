@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DocumentDesigner.Application\DocumentDesigner.Application.csproj" />
+    <ProjectReference Include="..\DocumentDesigner.Persistence\DocumentDesigner.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

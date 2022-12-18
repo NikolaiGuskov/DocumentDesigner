@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using DocumentDesigner.Application.Data;
+using DocumentDesigner.WebApi.Mappers;
 using DocumentDesigner.WebApi.Service;
+using DocumentDesigner.WebApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentDesigner.WebApi.Controllers
@@ -25,39 +27,47 @@ namespace DocumentDesigner.WebApi.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Authentication()
+		public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
 			if (ModelState.IsValid)
 			{
 				var user = await _contextData.Clients
-					.GetClient(null, null)
+					.GetClient(loginModel.Email, loginModel.Password)
 					.ConfigureAwait(false);
 
 				if (user != null)
 				{
 					await _authenticationService
-						.SetAuthenticationCookies(null)
+						.SetAuthenticationCookies(loginModel.Email)
 						.ConfigureAwait(false);
 
 					return RedirectToAction("Index", "Home");
 				}
-
-				ModelState.AddModelError("", "Некорректные логин и(или) пароль");
 			}
 
-			return View();
+			ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+
+			return View(loginModel);
         }
+
+		[HttpGet]
+		public IActionResult Registration()
+		{
+			return View();
+		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Registration()
+		public async Task<IActionResult> Registration(RegistrationViewModel registrationModel)
 		{
 			if (ModelState.IsValid)
 			{
-				await _contextData.Clients.CreateClient(null).ConfigureAwait(false);
+				await _contextData.Clients
+					.CreateClient(registrationModel.MapFromRegistrationViewModel())
+					.ConfigureAwait(false);
 
 				await _authenticationService
-					.SetAuthenticationCookies(null)
+					.SetAuthenticationCookies(registrationModel.Email)
 					.ConfigureAwait(false);
 
 				return RedirectToAction("Index", "Home");

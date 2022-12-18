@@ -6,8 +6,7 @@ namespace DocumentDesigner.Application.Extensions
 {
 	public static class DependencyInjectionExtension
 	{
-		public static IServiceCollection AddPersistense(this IServiceCollection services,
-			IConfiguration configuration)
+		public static IServiceCollection AddApplication(this IServiceCollection services)
 		{
 			services.AddTransient<ContextData>();
 
