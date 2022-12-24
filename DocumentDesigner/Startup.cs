@@ -43,7 +43,7 @@ namespace DocumentDesigner
 			}
 			else
 			{
-				app.UseExceptionHandler("/Home/Error");
+				app.UseExceptionHandler("/Document/Error");
 				app.UseHsts();
 			}
 			app.UseHttpsRedirection();
@@ -58,7 +58,7 @@ namespace DocumentDesigner
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Home}/{action=Index}/{id?}");
+					pattern: "{controller=Document}/{action=Index}/{id?}");
 			});
 		}
 	}

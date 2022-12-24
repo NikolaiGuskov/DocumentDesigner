@@ -41,7 +41,7 @@ namespace DocumentDesigner.WebApi.Controllers
 						.SetAuthenticationCookies(loginModel.Email)
 						.ConfigureAwait(false);
 
-					return RedirectToAction("Index", "Home");
+					return RedirectToAction("Index", "Document");
 				}
 			}
 
@@ -70,7 +70,7 @@ namespace DocumentDesigner.WebApi.Controllers
 					.SetAuthenticationCookies(registrationModel.Email)
 					.ConfigureAwait(false);
 
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("Index", "Document");
 			}
 
 			return View();

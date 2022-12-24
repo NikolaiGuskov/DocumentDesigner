@@ -17,13 +17,19 @@
                 <div class="collapse navbar-collapse" id="navContent">
                     <ul class="navbar-nav mr-auto mb-3 mb-lg-0">
                         <li class="nav-item">
-                            <a asp-controller="Home" asp-action="Index" class="nav-link">Главная</a>
+                            <a asp-controller="Document" asp-action="Index" class="nav-link">Главная</a>
                         </li>
                         <li class="nav-item">
                             <a href="" class="nav-link">Инфо</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
+                            <li class="nav-item">
+                                <a href="" class="nav-link">История моих документов</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">Мои настройки</a>
+                            </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link">Выйти</a>
                             </li>

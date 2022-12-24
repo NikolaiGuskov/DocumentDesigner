@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DocumentDesigner.Controllers
 {
-	public class HomeController : Controller
+	public class DocumentController : Controller
 	{
 		// [Authorize]
 		public IActionResult Index()
