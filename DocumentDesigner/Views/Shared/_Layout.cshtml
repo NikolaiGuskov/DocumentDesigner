@@ -22,6 +22,12 @@
                         <li class="nav-item">
                             <a href="" class="nav-link">Инфо</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a href="" class="nav-link">Выйти</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -31,7 +37,7 @@
         <div id="content" class="container">
             @RenderBody()
         </div>
-        <footer class="fixed-bottom border-top border-dark">
+        <footer class="border-top border-dark bg-light bg-gradient">
             <P id="footer-info">Все права защищены 2022</P>
         </footer>
     </section>

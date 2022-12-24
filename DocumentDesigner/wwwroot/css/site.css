@@ -1,6 +1,6 @@
 ﻿#hero {
     width: 100%;
-    height: 100vh;
+    height: 97.5vh;
     background: url(https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/loan-documents-csa-images.jpg);
     background-color: black;
     background-size: cover;
@@ -9,16 +9,13 @@
 }
 
 #footer-info {
-    margin-left: 40%;
+    margin-left: 45%;
 }
 
 #content {
     padding-top: 100px;
     height: 100%;
     width: 100%;
-}
-
-#authorization-container {
 }
 
 .yellow-color {
@@ -55,4 +52,54 @@
     background-color: red;
     height: 100px;
     width: 100px;
+}
+
+div.validation li {
+    list-style-type: none;
+    color: red;
+}
+
+div.validation ul {
+    padding: 0;
+}
+
+.align-center {
+    margin-left: 40%;
+}
+
+#documents-row{
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.list-documents {
+    list-style: none;
+    padding: 0;
+}
+
+.document-heading {
+    border-left: 10px solid #f05d22 !important;
+    font-weight: bold;
+    font-size: 20px !important;
+}
+
+.list-documents li {
+    font-family: "Trebuchet MS", "Lucida Sans";
+    padding: 7px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 10px solid #8bc63e; 
+    box-shadow: 2px -2px 5px 0 rgba(0,0,0,.1),
+         -2px -2px 5px 0 rgba(0,0,0,.1),
+        2px 2px 5px 0 rgba(0,0,0,.1),
+        -2px 2px 5px 0 rgba(0,0,0,.1);
+    font-size: 15px;
+    letter-spacing: 2px;
+    transition: 0.3s all linear;
+}
+
+@media screen and (max-device-width:480px) {
+    #documents-row {
+        margin-left: 0;
+    }
 }
