@@ -1,21 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using DocumentDesigner.Models;
-using Microsoft.AspNetCore.Authorization;
+using DocumentDesigner.WebApi.Mappers;
+using DocumentDesigner.Application.Handlers.Interfaces;
+using DocumentDesigner.WebApi.ViewModels;
 
 namespace DocumentDesigner.Controllers
 {
 	public class DocumentController : Controller
 	{
-		// [Authorize]
-		public IActionResult Index()
+		public readonly IDocumentHandler _documentHandler;
+
+		public DocumentController(IDocumentHandler documentHandler)
 		{
-			return View();
+			_documentHandler = documentHandler;
+		}
+
+		// [Authorize]
+		public async Task<IActionResult> IndexAsync()
+		{
+			var groupsDocument = await _documentHandler.GetAllGroupDocumentWithDocuments();
+			var view = new GroupDocumentViews(groupsDocument.Select(g => g.MapInGroupDocumentView()).ToArray());
+
+			return View(view);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

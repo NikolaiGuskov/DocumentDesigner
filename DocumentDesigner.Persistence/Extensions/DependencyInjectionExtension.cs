@@ -11,6 +11,7 @@ namespace DocumentDesigner.Persistence.Extensions
 			IConfiguration configuration)
 		{
 			services.AddTransient<IClientRepository, ClientRepository>();
+			services.AddTransient<IDocumentRepository, DocumentRepository>();
 			services.AddTransient<IDocumentDesignerDbContext, DocumentDesignerDbContext>();
 
 			return services;

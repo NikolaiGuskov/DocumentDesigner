@@ -1,0 +1,27 @@
+﻿@model DocumentDesigner.WebApi.ViewModels.GroupDocumentViews
+@{
+    ViewData["Title"] = "Типы документов";
+}
+
+<div class="row white-shadow mt-5">
+    <h2 class="yellow-color align-center">Типы документов</h2>
+    <div id="documents-row" class="row mt-3">
+        @foreach (var groupsDocuments in Model.Split())
+        {
+        <div class="row">
+            @foreach (var group in groupsDocuments)
+            {
+                <div class="col-5">
+                    <ul class="list-documents">
+                        <li class="document-heading">@group.Title</li>
+                        @foreach (var document in group.Documents)
+                        {
+                            <li><a href="#">@document.Name</a></li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+        }
+    </div>
+</div>
