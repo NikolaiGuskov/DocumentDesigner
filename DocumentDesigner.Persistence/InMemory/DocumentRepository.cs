@@ -39,8 +39,9 @@ namespace DocumentDesigner.Persistence.InMemory
 						},
 						new Document
 						{
-							DocumentID = 3,
-							Name = "Заявление повышение в должности"
+							DocumentID = 2,
+							Name = "Служебная записка о повышении в должности",
+							ViewName = "ApplicationPromotion"
 						}
 					}
 				};

@@ -1,0 +1,65 @@
+﻿@model DocumentDesigner.WebApi.ViewModels.ApplicationPromotionViewModel
+@{
+    ViewData["Title"] = "Главная";
+    Layout = null;
+}
+
+<style>
+    #header-document {
+        margin-top: 25px;
+        margin-left: 600px;
+        height: 100px;
+        width: 300px;
+    }
+
+    #heading {
+        margin-top: 200px;
+        margin-left: 300px;
+    }
+
+    #main-document {
+        margin-left: 180px;
+    }
+
+    #director-name {
+        margin-left: 40px;
+    }
+
+    #footer-document {
+    }
+
+    #employee-position {
+        margin-top: 200px;
+    }
+
+    #employee-name {
+        margin-left: 600px;
+    }
+</style>
+
+<div id="header-document">
+    <p>Генеральному директору</p>
+    <p>@Model.CompanyName</p>
+    <p>@Model.DirectorName</p>
+    <br />
+    <p>от @(Model.EmployeesPosition + "а") @Model.CompanyName</p>
+    <p>@Model.EmployeesNameTwo</p>
+</div>
+
+<div id="heading">
+    <h3>Служебная записка о повышении в должности</h3>
+</div>
+
+<div id="main-document">
+    <p>Прошу Вас рассмотреть кандидатуру @Model.PromotionPosition @Model.PromotionName на вакантную должность @Model.VacantPosition</p>
+    <p>@Model.PromotionName зарекомендовал себя как профессиональный и грамотный сотрудник</p>
+</div>
+
+<div>
+    <p id="employee-position">@Model.EmployeesPosition <span id="employee-name">@Model.EmployeesName</span></p>
+    <p>@DateTime.Now.Date.ToShortDateString()</p>
+</div>
+<div id="footer-document">
+    <p><b>Не возражаю</b></p>
+    <p>Гениральный директор <span id="director-name">@Model.DirectorName</span></p>
+</div>

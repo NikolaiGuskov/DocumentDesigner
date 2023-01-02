@@ -10,6 +10,6 @@ namespace DocumentDesigner.Application.Handlers.Interfaces
 
 		Task<Document> GetDocumentByID(int documentID);
 
-		Task<byte[]> GenerateDocumentDismissalInPdf(string html);
+		Task<byte[]> GenerateDocumentInPDF(string html);
 	}
 }

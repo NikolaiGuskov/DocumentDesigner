@@ -45,9 +45,20 @@ namespace DocumentDesigner.Controllers
 			const string templatePath = "~/Views/Templates/ApplicationDismissal.cshtml";
 
 			var html = await _customViewRendererService.RenderViewToStringAsync(ControllerContext, templatePath, model);
-			var documentFile = await _documentHandler.GenerateDocumentDismissalInPdf(html);
+			var documentFile = await _documentHandler.GenerateDocumentInPDF(html);
 
 			return File(documentFile, "application/pdf", "Заявление на увольнение.pdf");
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> GenerateDocumentPromotion(ApplicationPromotionViewModel model)
+		{
+			const string templatePath = "~/Views/Templates/ApplicationPromotion.cshtml";
+
+			var html = await _customViewRendererService.RenderViewToStringAsync(ControllerContext, templatePath, model);
+			var documentFile = await _documentHandler.GenerateDocumentInPDF(html);
+
+			return File(documentFile, "application/pdf", "Служебная записка о повышении в должности.pdf");
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

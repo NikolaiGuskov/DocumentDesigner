@@ -46,7 +46,7 @@ namespace DocumentDesigner.Application.Handlers
 			}
 		}
 
-		public async Task<byte[]> GenerateDocumentDismissalInPdf(string html)
+		public async Task<byte[]> GenerateDocumentInPDF(string html)
 		{
 			try
 			{
