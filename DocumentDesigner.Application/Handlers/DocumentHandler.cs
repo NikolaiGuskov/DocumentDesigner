@@ -1,9 +1,7 @@
 ﻿using DocumentDesigner.Application.Data;
 using DocumentDesigner.Application.Domain;
 using DocumentDesigner.Application.Handlers.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DocumentDesigner.Application.Handlers
@@ -20,6 +18,11 @@ namespace DocumentDesigner.Application.Handlers
 		public async Task<IReadOnlyCollection<GroupDocument>> GetAllGroupDocumentWithDocuments()
 		{
 			return await _contextData.Documents.GetAllGroupDocumentWithDocuments();
+		}
+
+		public async Task<Document> GetDocumentByID(int documentID)
+		{
+			return await _contextData.Documents.GetDocumentByID(documentID);
 		}
 	}
 }

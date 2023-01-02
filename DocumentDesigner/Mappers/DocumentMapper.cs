@@ -5,9 +5,9 @@ namespace DocumentDesigner.WebApi.Mappers
 {
 	public static class DocumentMapper
 	{
-		public static GroupDocumentView MapInGroupDocumentView(this GroupDocument groupDocument)
+		public static GroupDocumentViewModel MapInGroupDocumentView(this GroupDocument groupDocument)
 		{
-			return new GroupDocumentView
+			return new GroupDocumentViewModel
 			{
 				GroupID = groupDocument.GroupID,
 				Title = groupDocument.Title,

@@ -22,9 +22,16 @@ namespace DocumentDesigner.Controllers
 		public async Task<IActionResult> IndexAsync()
 		{
 			var groupsDocument = await _documentHandler.GetAllGroupDocumentWithDocuments();
-			var view = new GroupDocumentViews(groupsDocument.Select(g => g.MapInGroupDocumentView()).ToArray());
+			var view = new GroupDocumentViewModels(groupsDocument.Select(g => g.MapInGroupDocumentView()).ToArray());
 
 			return View(view);
+		}
+
+		public async Task<IActionResult> GetDocument(int? documentID)
+		{
+			var document = await _documentHandler.GetDocumentByID(documentID.Value);
+
+			return View(document.ViewName);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

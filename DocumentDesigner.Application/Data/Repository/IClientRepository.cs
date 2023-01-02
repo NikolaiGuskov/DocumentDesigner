@@ -11,5 +11,8 @@ namespace DocumentDesigner.Application.Data
 		public Task<Client> GetClient(string email, string password);
 
 		public Task CreateClient(Client client);
+
+
+		Task<Client> GetClientByID(int clientID);
 	}
 }

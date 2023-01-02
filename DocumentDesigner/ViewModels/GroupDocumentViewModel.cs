@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DocumentDesigner.WebApi.ViewModels
 {
-	public class GroupDocumentView
+	public class GroupDocumentViewModel
 	{
 		public int GroupID { get; set; }
 

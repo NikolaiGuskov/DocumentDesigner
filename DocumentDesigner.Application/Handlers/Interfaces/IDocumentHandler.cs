@@ -7,5 +7,7 @@ namespace DocumentDesigner.Application.Handlers.Interfaces
 	public interface IDocumentHandler
 	{
 		Task<IReadOnlyCollection<GroupDocument>> GetAllGroupDocumentWithDocuments();
+
+		Task<Document> GetDocumentByID(int documentID);
 	}
 }

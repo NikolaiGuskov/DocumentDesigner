@@ -25,5 +25,12 @@ namespace DocumentDesigner.Persistence.InMemory
 
 			return await Task.FromResult(client);
 		}
+
+		public async Task<Client> GetClientByID(int clientID)
+		{
+			var client = _clients.FirstOrDefault(c => c.ClientID == clientID);
+
+			return await Task.FromResult(client);
+		}
 	}
 }

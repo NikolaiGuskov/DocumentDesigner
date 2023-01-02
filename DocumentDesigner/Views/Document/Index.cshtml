@@ -1,4 +1,4 @@
-﻿@model DocumentDesigner.WebApi.ViewModels.GroupDocumentViews
+﻿@model DocumentDesigner.WebApi.ViewModels.GroupDocumentViewModels
 @{
     ViewData["Title"] = "Типы документов";
 }
@@ -16,7 +16,7 @@
                         <li class="document-heading">@group.Title</li>
                         @foreach (var document in group.Documents)
                         {
-                            <li><a href="#">@document.Name</a></li>
+                            <li><a asp-action="GetDocument"  asp-route-documentID="@document.DocumentID">@document.Name</a></li>
                         }
                     </ul>
                 </div>

@@ -7,8 +7,12 @@ namespace DocumentDesigner.Application.Data
 {
 	public interface IDocumentRepository
 	{
-		public Task<IReadOnlyCollection<GroupDocument>> GetAllGroupDocumentWithDocuments();
+		Task<IReadOnlyCollection<GroupDocument>> GetAllGroupDocumentWithDocuments();
 
-		public Task<IReadOnlyCollection<Document>> GetDocumentsForClient(int clientID);
+		Task<IReadOnlyCollection<Document>> GetDocumentsForClient(int clientID);
+
+		Task AddDocementsClient(int documentID, int clientID);
+
+		Task<Document> GetDocumentByID(int documentID);
 	}
 }

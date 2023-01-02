@@ -10,6 +10,8 @@ namespace DocumentDesigner.Application.Domain
 
 		public string Name { get; set; }
 
+		public string ViewName { get; set; }
+
 		public GroupDocument Group { get; set; }
 
 		public IReadOnlyCollection<HistoryDocument> HistoryDocuments { get; set; }
