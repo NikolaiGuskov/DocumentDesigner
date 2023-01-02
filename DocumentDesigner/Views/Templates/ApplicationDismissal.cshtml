@@ -1,0 +1,58 @@
+﻿@model DocumentDesigner.WebApi.ViewModels.ApplicationDismissalViewModel
+@{
+    ViewData["Title"] = "Главная";
+    Layout = null;
+}
+
+<style>
+    #header-document {
+        margin-top: 25px;
+        margin-left: 600px;
+        height: 100px;
+        width: 300px;
+    }
+
+    #heading {
+        margin-top: 200px;
+        margin-left: 300px;
+    }
+
+    #main-document {
+        margin-left: 180px;
+    }
+
+    #footer-document {
+    }
+
+    #employee-name {
+        margin-top: 300px;
+        margin-left: 700px;
+    }
+
+    #date-now {
+        margin-left: 50px;
+    }
+</style>
+
+<div id="header-document">
+    <p>Генеральному директору</p>
+    <p>@Model.CompanyName</p>
+    <p>@Model.DirectorName</p>
+    <br />
+    <p>от @(Model.EmployeesPosition + "а") @Model.CompanyName</p>
+    <p>@Model.EmployeesNameTwo</p>
+</div>
+
+<div id="heading">
+    <h1>&nbsp;&nbsp;&nbsp;&nbsp;ЗАЯВЛЕНИЕ</h1>
+    <h3>Об увольнении по собственному желанию</h3>
+</div>
+
+<div id="main-document">
+    <p>Прошу уволить меня по собственному желанию(на основании ст. 80 ТК РФ) с должности @Model.EmployeesPosition</p>
+</div>
+
+<div id="footer-document">
+    <p id="employee-name">@Model.EmployeesName</p>
+    <p id="date-now">@DateTime.Now.Date.ToShortDateString()</p>
+</div>

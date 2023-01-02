@@ -9,5 +9,7 @@ namespace DocumentDesigner.Application.Handlers.Interfaces
 		Task<IReadOnlyCollection<GroupDocument>> GetAllGroupDocumentWithDocuments();
 
 		Task<Document> GetDocumentByID(int documentID);
+
+		Task<byte[]> GenerateDocumentDismissalInPdf(string html);
 	}
 }

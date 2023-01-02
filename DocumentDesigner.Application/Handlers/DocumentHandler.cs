@@ -1,6 +1,7 @@
 ﻿using DocumentDesigner.Application.Data;
 using DocumentDesigner.Application.Domain;
 using DocumentDesigner.Application.Handlers.Interfaces;
+using IronPdf;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace DocumentDesigner.Application.Handlers
 {
 	public class DocumentHandler : IDocumentHandler
 	{
-		public readonly ContextData _contextData;
+		private readonly ContextData _contextData;
 
 		public DocumentHandler(ContextData contextData)
 		{
@@ -38,6 +39,21 @@ namespace DocumentDesigner.Application.Handlers
 					throw new ArgumentNullException(nameof(document));
 
 				return document;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		public async Task<byte[]> GenerateDocumentDismissalInPdf(string html)
+		{
+			try
+			{
+				var Renderer = new HtmlToPdf();
+				var PDF = await Renderer.RenderHtmlAsPdfAsync(html);
+
+				return PDF.BinaryData;
 			}
 			catch (Exception ex)
 			{

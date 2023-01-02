@@ -27,9 +27,11 @@ namespace DocumentDesigner
 					options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Authentication/Login");
 				});
 			services.AddControllersWithViews();
+			services.AddRazorPages();
 			services.AddHttpContextAccessor();
 
 			services.AddTransient<IAuthenticationService, AuthenticationService>();
+			services.AddTransient<ICustomViewRendererService, CustomViewRendererService>();
 
 			services.AddApplication();
 			services.AddPersistense(Configuration);

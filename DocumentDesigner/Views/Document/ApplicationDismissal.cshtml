@@ -8,7 +8,7 @@
     </div>
     <div class="col-6">
         <h2 class="yellow-color">Шаблон документа: Увольнение по собственному желанию</h2>
-        <form asp-action="CreateDocument" asp-controller="Document" asp-anti-forgery="true">
+        <form asp-action="GenerateDocumentDismissal" asp-controller="Document" asp-anti-forgery="true">
             <div class="validation" asp-validation-summary="ModelOnly"></div>
             <div class="mb-2">
                 <label asp-for="CompanyName" class="form-label orange-color">Название компании</label>

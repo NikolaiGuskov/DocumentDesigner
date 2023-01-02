@@ -6,15 +6,20 @@ using DocumentDesigner.Models;
 using DocumentDesigner.WebApi.Mappers;
 using DocumentDesigner.Application.Handlers.Interfaces;
 using DocumentDesigner.WebApi.ViewModels;
+using DocumentDesigner.WebApi.Service;
 
 namespace DocumentDesigner.Controllers
 {
 	public class DocumentController : Controller
 	{
-		public readonly IDocumentHandler _documentHandler;
+		private readonly IDocumentHandler _documentHandler;
 
-		public DocumentController(IDocumentHandler documentHandler)
+		private readonly ICustomViewRendererService _customViewRendererService;
+
+		public DocumentController(IDocumentHandler documentHandler, 
+			ICustomViewRendererService customViewRendererService)
 		{
+			_customViewRendererService = customViewRendererService;
 			_documentHandler = documentHandler;
 		}
 
@@ -34,11 +39,15 @@ namespace DocumentDesigner.Controllers
 			return View(document.ViewName);
 		}
 
-		public async Task<IActionResult> GenerateDocument(ApplicationDismissalViewModel model)
+		[HttpPost]
+		public async Task<IActionResult> GenerateDocumentDismissal(ApplicationDismissalViewModel model)
 		{
-			var document = await _documentHandler.GetDocumentByID(documentID.Value);
+			const string templatePath = "~/Views/Templates/ApplicationDismissal.cshtml";
 
-			return RedirectToAction("Index");
+			var html = await _customViewRendererService.RenderViewToStringAsync(ControllerContext, templatePath, model);
+			var documentFile = await _documentHandler.GenerateDocumentDismissalInPdf(html);
+
+			return File(documentFile, "application/pdf", "Заявление на увольнение.pdf");
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
