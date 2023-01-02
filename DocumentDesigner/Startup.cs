@@ -37,6 +37,7 @@ namespace DocumentDesigner
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			env.EnvironmentName = "Production";
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();

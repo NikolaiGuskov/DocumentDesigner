@@ -34,6 +34,13 @@ namespace DocumentDesigner.Controllers
 			return View(document.ViewName);
 		}
 
+		public async Task<IActionResult> GenerateDocument(ApplicationDismissalViewModel model)
+		{
+			var document = await _documentHandler.GetDocumentByID(documentID.Value);
+
+			return RedirectToAction("Index");
+		}
+
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
 		{
