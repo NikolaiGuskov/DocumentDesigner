@@ -61,6 +61,17 @@ namespace DocumentDesigner.Controllers
 			return File(documentFile, "application/pdf", "Служебная записка о повышении в должности.pdf");
 		}
 
+		[HttpPost]
+		public async Task<IActionResult> GenerateDocumentInvoice(ApplicationInvoiceViewModel model)
+		{
+			const string templatePath = "~/Views/Templates/ApplicationInvoice.cshtml";
+
+			var html = await _customViewRendererService.RenderViewToStringAsync(ControllerContext, templatePath, model);
+			var documentFile = await _documentHandler.GenerateDocumentInPDF(html);
+
+			return File(documentFile, "application/pdf", "Накладная.pdf");
+		}
+
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
 		{

@@ -56,7 +56,8 @@ namespace DocumentDesigner.Persistence.InMemory
 						new Document
 						{
 							DocumentID = 4,
-							Name = "Накладная"
+							Name = "Накладная",
+							ViewName = "ApplicationInvoice"
 						}
 					}
 				};

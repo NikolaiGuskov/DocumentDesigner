@@ -1,0 +1,62 @@
+﻿@model DocumentDesigner.WebApi.ViewModels.ApplicationInvoiceViewModel
+@{
+    ViewData["Title"] = "Главная";
+    Layout = null;
+}
+
+<style>
+    #header-document {
+        margin-top: 25px;
+        margin-left: 600px;
+        height: 100px;
+        width: 300px;
+    }
+
+    #heading {
+        margin-left: 400px;
+    }
+    table {
+        border: 1px solid #ccc; 
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td, th {
+        border: 1px solid #ccc; 
+    }
+</style>
+
+<div id="header-document">
+    <p>04.01.2023</p>
+</div>
+<div id="heading">
+    <h3>Накладная №4</h3>
+</div>
+<div style="margin-left: 50px;">
+    <p>Кому: @Model.ToWhom</p>
+    <p>От кого: @Model.FromWhom</p>
+</div>
+<div>
+    <table style="margin-left: 50px;">
+        <tr>
+            <td style="min-width:180px;">Наименование</td>
+            <td style="min-width:180px;">Цена</td>
+            <td style="min-width:180px;">Кол-во</td>
+            <td style="min-width:180px;">Сумма</td>
+        </tr>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <td style="min-width:180px;">@product.Name</td>
+                <td style="min-width:180px;">@product.Price</td>
+                <td style="min-width:180px;">@product.Quantity</td>
+                <td style="min-width:180px;">@(product.Quantity * product.Price)</td>
+            </tr>
+        }
+    </table>
+</div>
+<div>
+    <p style="margin-left: 50px;">Сдал: @Model.FromWhom <span style="margin-left: 100px;">Принял: @Model.ToWhom</span></p>
+</div>

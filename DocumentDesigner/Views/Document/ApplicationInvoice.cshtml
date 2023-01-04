@@ -1,0 +1,113 @@
+﻿@model DocumentDesigner.WebApi.ViewModels.ApplicationInvoiceViewModel
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<div class="row white-shadow">
+    <div class="col-3 mt-5">
+    </div>
+    <div class="col-6">
+        <h2 class="yellow-color">Шаблон документа: Накладная</h2>
+        <form asp-action="GenerateDocumentInvoice" asp-controller="Document" asp-anti-forgery="true">
+            <div class="validation" asp-validation-summary="ModelOnly"></div>
+            <div class="mb-2">
+                <label asp-for="Numberinvoice" class="form-label orange-color">Номер накладной</label>
+                <input type="text" asp-for="Numberinvoice" class="form-control">
+                <span asp-validation-for="Numberinvoice" />
+            </div>
+            <div class="mb-2">
+                <label asp-for="ToWhom" class="form-label orange-color">Кому</label>
+                <input type="text" asp-for="ToWhom" class="form-control">
+                <span asp-validation-for="ToWhom" />
+            </div>
+            <div class="mb-2">
+                <label asp-for="FromWhom" class="form-label orange-color">От кого</label>
+                <input type="text" asp-for="FromWhom" class="form-control">
+                <span asp-validation-for="FromWhom" />
+            </div>
+            <div>
+                <table id="table-products">
+                    <tr>
+                        <td>Наименование</td>
+                        <td>Цена</td>
+                        <td>Кол-во</td>
+                        <td style="max-width:45px;">Удалить</td>
+                    </tr>
+                    @*<tr>
+                        <td><input readonly type="text" name="products[0].Name" value="Мясо" class="product-name" /></td>
+                        <td><input readonly type="text" name="products[0].Price" value="300" class="product-price" /></td>
+                        <td><input style="max-width:50px;" readonly type="text" name="products[0].Quantity" value="3" class="product-count" /></td>
+                        <td><button type="button" class="btnDelete">&times;</button></td>
+                    </tr>
+                    <tr>
+                        <td><input readonly type="text" name="products[1].Name" value="Яблоко" class="product-name" /></td>
+                        <td><input readonly type="text" name="products[1].Price" value="100" class="product-price" /></td>
+                        <td><input style="max-width:50px;" readonly type="text" name="products[1].Quantity" value="2" class="product-count" /></td>
+                        <td><button type="button" class="btnDelete">&times;</button></td>
+                    </tr>*@
+                </table>
+            </div>
+            <br />
+            <label class="form-label orange-color">Наименование товара</label>
+            <input type="text" id="product-name" class="form-control">
+            <label class="form-label orange-color">Цена товара</label>
+            <input type="text" id="product-price" class="form-control">
+            <label class="form-label orange-color">Количество товара</label>
+            <input type="text" id="product-quantity" class="form-control">
+            <p><a class="mt-5 addLink btn-success">Добавить новый элемент</a></p>
+            <button type="submit" class="btn btn-primary mb-3">Сгенерировать документ</button>
+        </form>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#table-products").on('click', '.btnDelete', function (e) {
+                $(this).closest('tr').remove();
+
+                RefrechNameModel();
+            });
+        });
+
+        $(function () {
+            $('.addLink').click(function () {
+
+                var productName = $('#product-name').val();
+                var productPrice = $('#product-price').val();
+                var productQuantity = $('#product-quantity').val();
+                if (!productName || !productPrice || !productQuantity) {
+                    alert('Заполните все поля перед добавлением товара');
+
+                    return;
+                }
+                var html2Add = "<tr>" +
+                    "<td><input readonly type='text' name='products[0].Name' value='"+ productName +"' class='product-name'/></td>" +
+                    "<td><input readonly type='text' name='products[0].Price' value='" + productPrice +"' class='product-price'/></td>" +
+                    "<td><input style='max-width: 50px;' readonly type='text' name='products[0].Quantity' value='" + productQuantity +"' class='product-count'/></td>" +
+                    "<td><button class='btnDelete'>&times;</button></td>"
+                    "</tr>"
+
+                $('#table-products').append(html2Add);
+
+                RefrechNameModel();
+            })
+        })
+
+        function RefrechNameModel() {
+            $('.product-name').each(function (i) {
+                $(this).attr('name', 'products[' + i + '].Name');
+            });
+
+            $('.product-price').each(function (i) {
+                $(this).attr('name', 'products[' + i + '].Price');
+            });
+
+            $('.product-count').each(function (i) {
+                $(this).attr('name', 'products[' + i + '].Quantity');
+            });
+        }
+    </script>
+}
