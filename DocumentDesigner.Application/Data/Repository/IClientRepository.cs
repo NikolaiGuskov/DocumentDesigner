@@ -15,6 +15,8 @@ namespace DocumentDesigner.Application.Data
 
 		Task<Client> GetClientByID(int clientID);
 
+		Task<Client> GetClientByEmail(string clientEmail);
+
 		Task<int> SaveChangesAsync();
 	}
 }

@@ -71,7 +71,7 @@ namespace DocumentDesigner.Persistence.InMemory
 			});
 		}
 
-		public async Task AddDocementsClient(int documentID, int clientID)
+		public async Task AddDocumentsClient(int documentID, int clientID)
 		{
 			var document = _documents.FirstOrDefault(d => d.DocumentID == documentID);
 			var client = await _clientRepository.GetClientByID(clientID);

@@ -1,0 +1,24 @@
+﻿@model List<DocumentDesigner.WebApi.ViewModels.HistoryViewModel>
+@{
+    ViewData["Title"] = "Типы документов";
+}
+
+<div class="row white-shadow mt-5">
+    <h2 class="yellow-color align-center">История моих документов</h2>
+    <div class="row mt-3">
+        @foreach (var history in Model)
+        {
+        <div class="row">
+            <div class="col-4">
+                <p>@history.Document</p>
+            </div>
+            <div class="col-4">
+                <p>@history.Date</p>
+            </div>
+            <div class="col-4">
+                <p><a asp-action="DeleteHistory" asp-route-documentID="@history.HistoryID">Удалить</a></p>
+            </div>
+        </div>
+        }
+    </div>
+</div>

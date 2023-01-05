@@ -1,14 +1,14 @@
 ﻿using DocumentDesigner.Application.Data;
 using DocumentDesigner.Application.Domain;
-using DocumentDesigner.Persistence.Data.Models;
+using DocumentDesigner.Persistence.Mappers;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DocumentDesigner.Persistence.Data.Repository
 {
-	class ClientRepository : IClientRepository
+	public class ClientRepository : IClientRepository
 	{
 		private readonly DocumentDisegnerContext _dbContext;
 
@@ -19,24 +19,26 @@ namespace DocumentDesigner.Persistence.Data.Repository
 
 		public async Task CreateClient(Client client)
 		{
-			var clientDb = new Clients();
-			clientDb.Name = client.Name;
-			clientDb.Syrname = client.Syrname;
-			clientDb.Patronymic = client.Patronymic;
-			clientDb.Password = client.Password;
-			clientDb.Email = client.Email;
-
-			await _dbContext.AddAsync(clientDb);
+			await _dbContext.AddAsync(client.MapFromDomainClient());
 		}
 
-		public Task<Client> GetClient(string email, string password)
+		public async Task<Client> GetClient(string email, string password)
 		{
-			throw new NotImplementedException();
+			return (await _dbContext.Clients
+				.FirstOrDefaultAsync(c => c.Email == email && c.Password == password))
+				.MapInDomainClient();
 		}
 
-		public Task<Client> GetClientByID(int clientID)
+		public async Task<Client> GetClientByID(int clientID)
 		{
-			throw new NotImplementedException();
+			return (await _dbContext.Clients.FirstOrDefaultAsync(c => c.ClientId == clientID))
+				.MapInDomainClient();
+		}
+
+		public async Task<Client> GetClientByEmail(string clientEmail)
+		{
+			return (await _dbContext.Clients.FirstOrDefaultAsync(c => c.Email == clientEmail))
+				.MapInDomainClient();
 		}
 
 		public async Task<int> SaveChangesAsync()

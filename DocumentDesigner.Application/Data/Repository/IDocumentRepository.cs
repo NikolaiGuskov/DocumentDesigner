@@ -11,8 +11,10 @@ namespace DocumentDesigner.Application.Data
 
 		Task<IReadOnlyCollection<Document>> GetDocumentsForClient(int clientID);
 
-		Task AddDocementsClient(int documentID, int clientID);
+		Task AddDocumentsClient(int documentID, string clientEmail);
 
 		Task<Document> GetDocumentByID(int documentID);
+
+		Task<int> SaveChangesAsync();
 	}
 }
