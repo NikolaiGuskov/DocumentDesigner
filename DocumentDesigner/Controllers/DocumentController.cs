@@ -7,6 +7,7 @@ using DocumentDesigner.WebApi.Mappers;
 using DocumentDesigner.Application.Handlers.Interfaces;
 using DocumentDesigner.WebApi.ViewModels;
 using DocumentDesigner.WebApi.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DocumentDesigner.Controllers
 {
@@ -23,7 +24,7 @@ namespace DocumentDesigner.Controllers
 			_documentHandler = documentHandler;
 		}
 
-		// [Authorize]
+		[Authorize]
 		public async Task<IActionResult> IndexAsync()
 		{
 			var groupsDocument = await _documentHandler.GetAllGroupDocumentWithDocuments();

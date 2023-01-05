@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DocumentDesigner.Persistence.InMemory
 {
-	public class ClientRepository : IClientRepository
+	public class ClientRepository
 	{
 		static List<Client> _clients = new List<Client>();
 

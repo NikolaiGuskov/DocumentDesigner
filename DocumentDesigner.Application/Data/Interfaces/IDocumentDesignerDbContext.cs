@@ -8,6 +8,6 @@ namespace DocumentDesigner.Application.Data
 {
 	public interface IDocumentDesignerDbContext
 	{
-		Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+		Task<int> SaveChangesAsync();
 	}
 }

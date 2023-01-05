@@ -8,11 +8,13 @@ namespace DocumentDesigner.Application.Data
 {
 	public interface IClientRepository
 	{
-		public Task<Client> GetClient(string email, string password);
+		Task<Client> GetClient(string email, string password);
 
-		public Task CreateClient(Client client);
+		Task CreateClient(Client client);
 
 
 		Task<Client> GetClientByID(int clientID);
+
+		Task<int> SaveChangesAsync();
 	}
 }

@@ -5,18 +5,14 @@ namespace DocumentDesigner.Application.Data
 {
 	public class ContextData
 	{
-		private readonly IDocumentDesignerDbContext _documentDesignerDbContext;
-
 		private readonly IClientRepository _clientRepository;
 
 		private readonly IDocumentRepository _documentRepository;
 
 		public ContextData(
-			IDocumentDesignerDbContext documentDesignerDbContext, 
 			IClientRepository clientRepository,
 			IDocumentRepository documentRepository)
 		{
-			_documentDesignerDbContext = documentDesignerDbContext;
 			_clientRepository = clientRepository;
 			_documentRepository = documentRepository;
 		}
@@ -25,9 +21,18 @@ namespace DocumentDesigner.Application.Data
 
 		public IDocumentRepository Documents => _documentRepository;
 
-		public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+		public async Task<int> SaveChangesAsync()
 		{
-			return await _documentDesignerDbContext.SaveChangesAsync(cancellationToken);
+			try
+			{
+				await _clientRepository.SaveChangesAsync();
+
+				return 1;
+			}
+			catch (System.Exception ex)
+			{
+				throw new System.Exception("Произошла ошибка при сохранении", ex);
+			}
 		}
 	}
 }

@@ -70,6 +70,8 @@ namespace DocumentDesigner.WebApi.Controllers
 					.SetAuthenticationCookies(registrationModel.Email)
 					.ConfigureAwait(false);
 
+				await _contextData.SaveChangesAsync();
+
 				return RedirectToAction("Index", "Document");
 			}
 

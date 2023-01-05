@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace DocumentDesigner.Persistence.InMemory
 {
-	public class DocumentDesignerDbContext : IDocumentDesignerDbContext
+	public class DocumentDesignerDbContext 
 	{
 		public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
 		{
