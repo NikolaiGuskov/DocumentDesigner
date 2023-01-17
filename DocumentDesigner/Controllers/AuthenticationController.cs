@@ -62,6 +62,17 @@ namespace DocumentDesigner.WebApi.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				var client = await _contextData.Clients
+					.GetClientByEmail(registrationModel.Email)
+					.ConfigureAwait(false);
+
+				if (client != null)
+				{
+					ModelState.AddModelError("", "Клиент с таким Email уже есть");
+
+					return View(registrationModel);
+				}
+
 				await _contextData.Clients
 					.CreateClient(registrationModel.MapFromRegistrationViewModel())
 					.ConfigureAwait(false);

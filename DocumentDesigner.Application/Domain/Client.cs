@@ -19,5 +19,9 @@ namespace DocumentDesigner.Application.Domain
 		public string Password { get; set; }
 
 		public IReadOnlyCollection<HistoryDocument> HistoryDocuments { get; set; }
+
+		public IReadOnlyCollection<JuridicalPersonlsClient> JuridicalPersonIsClient { get; set; }
+
+		public IReadOnlyCollection<PhysicalPerson> PhysicalPersons { get; set; }
 	}
 }

@@ -46,6 +46,22 @@ namespace DocumentDesigner.Application.Handlers
 			}
 		}
 
+		public async Task<byte[]> AddDocumentForClient(string clientEmail, int documentID, string html)
+		{
+			try
+			{
+				await _contextData.Documents.AddDocumentsClient(documentID, clientEmail);
+
+				await _contextData.SaveChangesAsync();
+
+				return await GenerateDocumentInPDF(html);
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
 		public async Task<byte[]> GenerateDocumentInPDF(string html)
 		{
 			try

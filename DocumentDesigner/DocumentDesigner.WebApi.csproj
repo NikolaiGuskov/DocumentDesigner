@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NPetrovich" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DocumentDesigner.Application\DocumentDesigner.Application.csproj" />
     <ProjectReference Include="..\DocumentDesigner.Persistence\DocumentDesigner.Persistence.csproj" />
   </ItemGroup>

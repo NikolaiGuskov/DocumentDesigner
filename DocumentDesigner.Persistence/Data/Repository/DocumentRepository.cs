@@ -31,18 +31,24 @@ namespace DocumentDesigner.Persistence.Data.Repository
 			var history = new HistoryDocuments();
 			history.ClientId = client.ClientId;
 			history.DocumentId = document.DocumentID;
+			history.CreateDate = DateTime.Now;
 
 			_dbContext.HistoryDocuments.Add(history);
 		}
 
 		public async Task<IReadOnlyCollection<GroupDocument>> GetAllGroupDocumentWithDocuments()
 		{
-			throw new NotImplementedException();
+			return (await _dbContext.GroupDocuments
+				.Include(g => g.Documents)
+				.ToArrayAsync())
+				.Select(g => g.MapInDomainGroupDocument())
+				.ToArray();
 		}
 
 		public async Task<Document> GetDocumentByID(int documentID)
 		{
-			return (await _dbContext.Documents.FirstOrDefaultAsync(d => d.DocumentId == documentID))
+			return (await _dbContext.Documents.Include(d => d.Group)
+				.FirstOrDefaultAsync(d => d.DocumentId == documentID))
 				.MapInDomainDocument();
 		}
 
@@ -55,6 +61,26 @@ namespace DocumentDesigner.Persistence.Data.Repository
 			return (await documents.ToArrayAsync())
 				.Select(d => d.MapInDomainDocument())
 				.ToArray();
+		}
+
+		public async Task<IReadOnlyCollection<HistoryDocument>> GetDocumentsForClient(string clientEmail)
+		{
+			var client = await _clientRepository.GetClientByEmail(clientEmail);
+			var history = await _dbContext.HistoryDocuments
+				.Include(h => h.Document)
+					.ThenInclude(d => d.Group)
+				.Where(h => h.ClientId == client.ClientID)
+				.ToArrayAsync();
+
+			return history.Select(h => h.MapInDomainHistoryDocument()).ToArray();
+		}
+
+		public async Task DeleteHistory(int historyID)
+		{
+			var history = _dbContext.HistoryDocuments.Find(historyID);
+
+			_dbContext.HistoryDocuments.Remove(history);
+			await _dbContext.SaveChangesAsync();
 		}
 
 		public async Task<int> SaveChangesAsync()

@@ -15,6 +15,10 @@ namespace DocumentDesigner.Application.Data
 
 		Task<Document> GetDocumentByID(int documentID);
 
+		Task<IReadOnlyCollection<HistoryDocument>> GetDocumentsForClient(string clientEmail);
+
+		Task DeleteHistory(int historyID);
+
 		Task<int> SaveChangesAsync();
 	}
 }

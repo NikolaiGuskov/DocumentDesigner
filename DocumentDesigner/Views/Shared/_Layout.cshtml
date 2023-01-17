@@ -25,13 +25,13 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a href="" class="nav-link">История моих документов</a>
+                                <a asp-action="Index" asp-controller="History" class="nav-link">История моих документов</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link">Мои настройки</a>
+                                <a asp-action="Index" asp-controller="Setting" class="nav-link">Мои настройки</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link">Выйти</a>
+                                <a asp-action="Logout" asp-controller="Authentication" class="nav-link">Выйти</a>
                             </li>
                         }
                     </ul>
@@ -43,9 +43,9 @@
         <div id="content" class="container">
             @RenderBody()
         </div>
-        <footer class="border-top border-dark bg-light bg-gradient">
+        @*<footer class="border-top border-dark bg-light bg-gradient">
             <P id="footer-info">Все права защищены 2022</P>
-        </footer>
+        </footer>*@
     </section>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

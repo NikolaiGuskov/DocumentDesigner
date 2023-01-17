@@ -1,0 +1,41 @@
+﻿@model DocumentDesigner.WebApi.ViewModels.PhysicalPersonViewModel
+@{
+    ViewData["Title"] = "Добавить новое физ. лицо";
+    var formRoute = @Model?.IsUpdate == true ? "UpdatePhysicalPerson" : "CreatePhysicalPerson";
+}
+
+<div class="row white-shadow">
+    <div class="col-3 mt-5">
+    </div>
+    <div class="col-6">
+        <h2 class="yellow-color">Добавить новое физ. лицо</h2>
+        <form asp-action="@formRoute" asp-controller="Setting" asp-anti-forgery="true">
+            <input hidden type="text" asp-for="PhysicalPersonId" class="form-control">
+            <div class="validation" asp-validation-summary="ModelOnly"></div>
+            <div class="mb-2">
+                <label asp-for="Name" class="form-label orange-color">Имя</label>
+                <input type="text" asp-for="Name" class="form-control">
+                <span asp-validation-for="Name" />
+            </div>
+            <div class="mb-2">
+                <label asp-for="Syrname" class="form-label orange-color">Фамилия</label>
+                <input type="text" asp-for="Syrname" class="form-control">
+                <span asp-validation-for="Syrname" />
+            </div>
+            <div class="mb-2">
+                <label asp-for="Patronymic" class="form-label orange-color">Отчество</label>
+                <input type="text" asp-for="Patronymic" class="form-control">
+                <span asp-validation-for="Patronymic" />
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Ок</button>
+        </form>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

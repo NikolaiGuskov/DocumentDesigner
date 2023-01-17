@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
-using DocumentDesigner.Application.Data;
 using DocumentDesigner.Persistence.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DocumentDesigner.Persistence.Data
 {
@@ -27,12 +26,7 @@ namespace DocumentDesigner.Persistence.Data
         public virtual DbSet<Settings> Settings { get; set; }
         public virtual DbSet<TypeSettings> TypeSettings { get; set; }
 
-		public async Task<int> SaveChangesAsync()
-		{
-            return await base.SaveChangesAsync();
-		}
-
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
@@ -41,56 +35,56 @@ namespace DocumentDesigner.Persistence.Data
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Clients>(entity =>
         {
-            modelBuilder.Entity<Clients>(entity =>
-            {
-                entity.HasKey(e => e.ClientId);
+            entity.HasKey(e => e.ClientId);
 
-                entity.Property(e => e.ClientId).HasColumnName("ClientID");
+            entity.Property(e => e.ClientId).HasColumnName("ClientID");
 
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(500);
+            entity.Property(e => e.Email)
+                .IsRequired()
+                .HasMaxLength(500);
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(500);
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(500);
 
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(500);
+            entity.Property(e => e.Password)
+                .IsRequired()
+                .HasMaxLength(500);
 
-                entity.Property(e => e.Patronymic).HasMaxLength(500);
+            entity.Property(e => e.Patronymic).HasMaxLength(500);
 
-                entity.Property(e => e.Syrname)
-                    .IsRequired()
-                    .HasMaxLength(500);
-            });
+            entity.Property(e => e.Syrname)
+                .IsRequired()
+                .HasMaxLength(500);
+        });
 
-            modelBuilder.Entity<Documents>(entity =>
-            {
-                entity.HasKey(e => e.DocumentId);
+        modelBuilder.Entity<Documents>(entity =>
+        {
+            entity.HasKey(e => e.DocumentId);
 
-                entity.Property(e => e.DocumentId)
-                    .HasColumnName("DocumentID")
-                    .ValueGeneratedNever();
+            entity.Property(e => e.DocumentId)
+                .HasColumnName("DocumentID")
+                .ValueGeneratedNever();
 
-                entity.Property(e => e.GroupId).HasColumnName("GroupID");
+            entity.Property(e => e.GroupId).HasColumnName("GroupID");
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(500);
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(500);
 
-                entity.Property(e => e.ViewName)
-                    .IsRequired()
-                    .HasMaxLength(500);
+            entity.Property(e => e.ViewName)
+                .IsRequired()
+                .HasMaxLength(500);
 
-                entity.HasOne(d => d.Group)
-                    .WithMany(p => p.Documents)
-                    .HasForeignKey(d => d.GroupId)
-                    .HasConstraintName("FK_Documents_GroupDocuments");
-            });
+            entity.HasOne(d => d.Group)
+                .WithMany(p => p.Documents)
+                .HasForeignKey(d => d.GroupId)
+                .HasConstraintName("FK_Documents_GroupDocuments");
+        });
 
             modelBuilder.Entity<GroupDocuments>(entity =>
             {
@@ -107,11 +101,15 @@ namespace DocumentDesigner.Persistence.Data
 
             modelBuilder.Entity<HistoryDocuments>(entity =>
             {
-                entity.HasKey(e => new { e.ClientId, e.DocumentId });
+                entity.HasKey(e => new { e.ClientId, e.DocumentId, e.HistoryId });
 
                 entity.Property(e => e.ClientId).HasColumnName("ClientID");
 
                 entity.Property(e => e.DocumentId).HasColumnName("DocumentID");
+
+                entity.Property(e => e.HistoryId)
+                    .HasColumnName("HistoryID")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.CreateDate).HasColumnType("datetime");
 

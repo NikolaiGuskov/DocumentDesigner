@@ -11,29 +11,49 @@
         <form asp-action="GenerateDocumentDismissal" asp-controller="Document" asp-anti-forgery="true">
             <div class="validation" asp-validation-summary="ModelOnly"></div>
             <div class="mb-2">
-                <label asp-for="CompanyName" class="form-label orange-color">Название компании</label>
-                <input type="text" asp-for="CompanyName" class="form-control">
+                <label asp-for="CompanyName" class="form-label orange-color">Название компании</label><br />
+                <select name="CompanyName">
+                    @foreach (var company in Model.Companys)
+                    {
+                        <option value="@company.Name">@company.Name</option>
+                    }
+                </select>
                 <span asp-validation-for="CompanyName" />
             </div>
             <div class="mb-2">
-                <label asp-for="DirectorName" class="form-label orange-color">ФИО Директора в род. падеже</label>
-                <input type="text" asp-for="DirectorName" class="form-control">
-                <span asp-validation-for="DirectorName" />
+                <label asp-for="DirectorID" class="form-label orange-color">ФИО Директора</label><br />
+                <select name="DirectorID">
+                    @foreach (var physicalPerson in Model.PhysicalPersons)
+                    {
+                        <option value="@physicalPerson.PhysicalPersonId">@physicalPerson.FullName</option>
+                    }
+                </select>
+                <span asp-validation-for="DirectorID" />
             </div>
+            @*<div class="mb-2">
+            <label asp-for="DirectorName" class="form-label orange-color">ФИО Директора в род. падеже</label>
+            <input type="text" asp-for="DirectorName" class="form-control">
+            <span asp-validation-for="DirectorName" />
+            </div>*@
             <div class="mb-2">
                 <label asp-for="EmployeesPosition" class="form-label orange-color">Ваша должность</label>
                 <input type="text" asp-for="EmployeesPosition" class="form-control">
             </div>
             <div class="mb-2">
-                <label asp-for="EmployeesName" class="form-label orange-color">Ваше ФИО</label><br />
-                <input type="text" asp-for="EmployeesName" class="form-control">
-                <span asp-validation-for="EmployeesName" />
+                <label asp-for="EmployeesID" class="form-label orange-color">Ваше ФИО</label><br />
+                <select name="EmployeesID">
+                    @foreach (var physicalPerson in Model.PhysicalPersons)
+                    {
+                        <option value="@physicalPerson.PhysicalPersonId">@physicalPerson.FullName</option>
+                    }
+                </select>
+                <span asp-validation-for="EmployeesID" />
             </div>
-            <div class="mb-2">
+            @*<div class="mb-2">
                 <label asp-for="EmployeesNameTwo" class="form-label orange-color">Ваше ФИО в вин. падеже</label><br />
                 <input type="text" asp-for="EmployeesNameTwo" class="form-control">
                 <span asp-validation-for="EmployeesNameTwo" />
-            </div>
+            </div>*@
             <button type="submit" class="btn btn-primary mb-3">Сгенерировать документ</button>
         </form>
     </div>

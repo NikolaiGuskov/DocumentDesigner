@@ -1,0 +1,38 @@
+﻿@model IReadOnlyCollection<DocumentDesigner.Application.Domain.JuridicalPerson>
+@{
+    ViewData["Title"] = "Мои юридические лица";
+}
+
+<style>
+    #table-jp {
+        background-color: white;
+    }
+
+    table {
+        border: 1px solid #ccc; 
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td, th {
+        border: 1px solid #ccc;
+    }
+</style>
+
+<h2 class="yellow-color align-center">Мои юридические лица</h2>
+<table id="table-jp">
+    @foreach (var juridicalPerson in Model)
+    {
+        <tr>
+            <td style="min-width: 300px">@juridicalPerson.Name</td>
+            <td style="min-width: 300px">@juridicalPerson.Inn</td>
+            <td style="min-width: 300px">@juridicalPerson.Address</td>
+            <td style="min-width: 300px">@juridicalPerson.Phone</td>
+            <td style="min-width: 300px"><a asp-action="DeleteJuridicalPerson" asp-route-juridicalPersonID="@juridicalPerson.JuridicalPersonId">Удалить</a></td>
+        </tr>
+    }
+
+</table>
+<a asp-action="AddJuridicalPerson">Добавить новое юр. лицо</a>

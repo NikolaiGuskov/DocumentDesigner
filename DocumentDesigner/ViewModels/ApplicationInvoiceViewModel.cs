@@ -13,6 +13,10 @@ namespace DocumentDesigner.WebApi.ViewModels
 
 		public string FromWhom { get; set; }
 
+		public string ToWhomNom { get; set; }
+
+		public string FromWhomNom { get; set; }
+
 		public List<InvoiceProductViewModel> Products { get; set; }
 	}
 }

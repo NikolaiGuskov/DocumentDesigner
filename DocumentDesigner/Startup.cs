@@ -34,7 +34,7 @@ namespace DocumentDesigner
 			services.AddTransient<ICustomViewRendererService, CustomViewRendererService>();
 
 			services.AddApplication();
-			services.AddPersistense(Configuration);
+			services.AddPersistense();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
